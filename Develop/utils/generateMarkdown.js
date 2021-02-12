@@ -18,9 +18,10 @@ function renderLicenseBadge(license) {
    } else if (data.license=='ISC'){
     badge = '[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)'
   }
-   else if (data.license=='None of the Above'){
-    badge=  '[![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)'
+   else if (data.license=='None of the Above' || data.license==''){
+    badge= '[![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)'
  }
+};
 
 // TODO: Create a function that returns the license link
 // If there is no license, return an empty string
@@ -110,21 +111,25 @@ function generateMarkdown(data) {
   ##Badges
   renderLicenseBadge(license);
 
-  ##Features
-
   ##Contributing
+  ${data.contributing}
 
   ##Tests
-  
+  ${data.tests}
+
   ##Questions
   For any questions please contact me with the information below:
   Github: [@${data.github}]
   Email: ${data.email}
   
-
 `
 
 ;
 }
 
-module.exports = generateMarkdown(data);
+module.exports = {
+  generateMarkdown
+ // renderLicenseBadge,
+ // renderLicenseSection
+
+};

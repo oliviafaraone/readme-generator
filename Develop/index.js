@@ -1,6 +1,7 @@
 // TODO: Include packages needed for this application
 const fs = require('fs');
 const inquirer = require('inquirer');
+const generateMarkdown = require('./utils/generateMarkdown.js')
 
 // TODO: Create an array of questions for user input
 const questions = [
@@ -43,22 +44,10 @@ const questions = [
     message: 'If you created tests for your application, please provide them below.'}
 
 ];
-// Import generateMarkdown
-function importMD(){
-    fs.readFile('./utils/generateMarkdown.js', 'utf8' , (err, data) => {
-    if (err) {
-      console.error(err)
-      return
-    }
-   // console.log(data)
-
-  });
-};
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
-    importMD();
- fs.writeFile('/README.md', generateMarkdown(data), err => {
+ fs.writeFile('/README.md', generateMarkdown.generateMarkdown(data), err => {
    if (err) throw err;
 
    console.log('README is complete!');
@@ -68,31 +57,21 @@ function writeToFile(fileName, data) {
 // TODO: Create a function to initialize app
 function init() {
     const promptUser = () => {
-        return  inquirer.prompt(questions)
+        //return 
+        inquirer.prompt(questions)
 
-         // Write the user response to a file by chaining the below callback method to the prompt above.
-        .then(function(data){
-        //writeToFile();
-        // {
-            // Bonus: Generate the name of your user file from their input
-            // const filename =
-            // data.title
-            //     .toLowerCase()
-            //     .split(' ')
-            //     .join('') + '.json';
+        .then(data => {
+        //writeToFile()
+        //generateMarkdown.generateMarkdown(data);
 
-            // fs.writeFile('readme.json', JSON.stringify(data, null, '\t'), function(err) {
-            // if (err) {
-            //     return console.log(err);
-            // }
+            return console.log(data)
+        
+            })
+           
 
-            return console.log('Your data has been stored')
-
-            });
         };
     
-    promptUser()
-    .then(writeToFile);
+        promptUser();
 };
 
 
